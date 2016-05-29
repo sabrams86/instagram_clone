@@ -7,5 +7,6 @@
       =image_tag @post.image.url(:medium)
     p.caption
       =@post.caption
+    =link_to "Edit Post", edit_post_path
     .text-center
       =link_to "Cancel", posts_path
