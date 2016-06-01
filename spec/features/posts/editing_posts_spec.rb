@@ -5,11 +5,7 @@ feature 'Editing posts' do
   background do
     job = create(:post)
     user = create :user
-
-    visit '/'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_button 'Log in'
+    sign_in_with user
 
     find(:xpath, "//a[contains(@href,'posts/1')]").click
     click_link 'Edit Post'
@@ -28,5 +24,5 @@ feature 'Editing posts' do
     click_button 'Update Post'
     expect(page).to have_content("Something is wrong with your form!")
   end
-  
+
 end
