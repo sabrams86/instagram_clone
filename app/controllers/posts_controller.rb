@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  before_action :owned_post, only: [:edit, :update, :destroy]
   def index
     @posts = Post.all
   end
@@ -48,6 +48,13 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def owned_post
+    unless current_user.id == @post.user.id
+      flash[:alert] = "That post doesn't belong to you!"
+      redirect_to '/'
+    end
+  end
 
   def post_params
     params.require(:post).permit(:image, :caption)
