@@ -9,9 +9,9 @@ feature "Creating Comments" do
 
   scenario "users can comment on posts" do
     visit '/'
-    fill_in 'Comment', with: ';P'
+    fill_in 'comment_content', with: ';P'
     click_button 'Submit'
-    expect(page).to have_css("div.comments#{post.id}", text: ';P')
+    expect(page).to have_content(';P')
   end
 
 end
