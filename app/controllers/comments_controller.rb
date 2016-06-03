@@ -8,14 +8,13 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id
-
     if @comment.save
       respond_to do |format|
         format.html { redirect_to root_path }
         format.js
       end
     else
-      flash[:alert] = "Check the comment form, something went wrong."
+      flash[:alert] = 'Check the comment form, something went wrong.'
       render root_path
     end
   end
@@ -41,5 +40,4 @@ class CommentsController < ApplicationController
   def set_post
     @post = Post.find(params[:post_id])
   end
-
 end

@@ -20,5 +20,7 @@
             = render post.comments, post: post
       .comment-form.col-sm-11
         = form_for [post, post.comments.new], remote: true do |f|
-          = f.text_field :content, placeholder: 'Add a comment...', class: "comment_content", id: "comment_content_#{post.id}"
+          = f.text_field :content, placeholder: 'Add a comment...', 
+                         class: "comment_content", 
+                         id: "comment_content_#{post.id}"
           = f.submit "Submit"
