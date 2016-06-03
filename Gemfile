@@ -31,7 +31,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-  gem 'devise'  
+  gem 'devise'
   gem 'slim-rails'
   gem 'simple_form'
   gem "paperclip", "~> 4.2"
@@ -43,6 +43,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'rubocop'
 end
 
 group :development do
