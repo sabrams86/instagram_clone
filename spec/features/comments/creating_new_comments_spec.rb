@@ -9,7 +9,7 @@ feature "Creating Comments" do
 
   scenario "users can comment on posts" do
     visit '/'
-    fill_in 'comment_content', with: ';P'
+    fill_in 'comment_content_1', with: ';P'
     click_button 'Submit'
     expect(page).to have_content(';P')
   end
