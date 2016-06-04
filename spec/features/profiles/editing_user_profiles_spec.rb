@@ -2,37 +2,39 @@ require 'rails_helper'
 
 feature 'editing user profiles' do
   background do
-    # Create a user.
-    # Create a second user
-    # Create a post owned by the user.
-    # Create a post owned by the second user.
-    # Sign in with the first user.
-    # Visit the dashboard.
+    user = create :user
+    user_two = create(:user, id=2,
+                             email="hi@hi.com",
+                             user_name="fobbie")
+    post = create(:post, user_id: user.id)
+    post_two = create(:post, user_id: user_two.id,
+                             caption: "different post yo")
+    sign_in_with user
+    visit '/'
   end
 
   scenario 'a user can change their own profile details' do
-    # Click the first user's user name
-    # Click the 'Edit Profile' button.
-    # Click the 'Choose new profile image' button.
-    # Select the new image.
-    # Fill in the bio field with 'Is this real life?'
-    # Click the 'Update Profile' button.
+    first('.user-name' > 'a').click('Arnie')
+    click_link('Edit Profile')
+    attach_file('user_avatar', 'spec/files/images/avatar.jpg')
+    fill_in('user_bio', with: 'Is this real life?')
+    click_button 'Update Profile'
 
-    # Expect to be routed to the profile page.
-    # Expect to see the updated profile image.
-    # Expect to see the updated profile bio.
+    expect(page.current_path).to eq(profile_path('Arnie'))
+    expect(page).to have_css("img[src*='avatar']")
+    expect(page).to have_content('Is this real life?')
   end
 
   scenario 'a user cannot change someone elses profile picture' do
-    # Click the first user's user name
+    first('.user-name' > 'a').click('fobbie')
 
-    # Expect to not see the 'edit profile' button.
+    expect(page).to_not have_content('Edit Profile')
   end
 
   scenario "a user cannot navigate directly to edit a users profile" do
-    # Directly visit another user’s edit url.
+    visit '/fobbie/edit'
 
-    # Expect to not see ’Change your profile image:'
-    # Expect the path to be the root path.
-    # Expect to see the message, "That profile doesn’t belong to you!"
+    expect(page).to_not have_content('Change your profile image')
+    expect(page.current_path).to eq(root_path)
+    expect(page).to have_content("That Profile doesn't belong to you!")
   end
