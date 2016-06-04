@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     if @comment.save
       respond_to do |format|
         format.html { redirect_to root_path }
-        format.js
+        format.js { render :layout=>false }
       end
     else
       flash[:alert] = 'Check the comment form, something went wrong.'
@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
       @comment.delete
       respond_to do |format|
         format.html { redirect_to root_path }
-        format.js
+        format.js { render :layout=>false }
       end
     end
   end
