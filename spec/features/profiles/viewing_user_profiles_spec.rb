@@ -12,7 +12,7 @@ feature 'viewing user profiles' do
     sign_in_with user
 
     visit '/'
-    first('.user-name > a').click
+    click_link 'Arnie', match: :first    
   end
 
   scenario 'visiting a profile page shows the user name in the url' do
